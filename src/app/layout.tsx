@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Stark Bot",
   description: "Trade become more easy with TG Bot",
-  icons: "/starkBotWhite.svg",
+  icons: "/starkBot.svg",
 };
 
 export default function RootLayout({
