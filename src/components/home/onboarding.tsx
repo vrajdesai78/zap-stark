@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function Onboarding() {
   return (
-    <main className="flex flex-col items-center justify-center text-center gap-2">
+    <main className="flex flex-col items-center justify-center text-center gap-2 p-5">
       <Image
         src="/starkBot.svg"
         alt="Stark Bot"
