@@ -1,4 +1,3 @@
-import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import Image from "next/image";
 
 export function Onboarding() {
@@ -23,7 +22,9 @@ export function Onboarding() {
         </p>
       </div>
       <div className="my-6">
-        <DynamicWidget />
+        <button className="w-fit px-6 py-3 bg-stark rounded-xl">
+          Create Wallet
+        </button>
       </div>
       <span className="mt-5 text-sm text-neutral-500">
         By continuing, you are agreeing with Stark Bot&apos;s{" "}
