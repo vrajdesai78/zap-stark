@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "@/context";
 import Home from "./home";
 import Swap from "./swap";
+import Send from "./send";
 
 export default function Wallet() {
   const { walletState } = useContext(GlobalContext);
@@ -11,6 +12,7 @@ export default function Wallet() {
       <Navbar />
       {walletState === "HOME" && <Home />}
       {walletState === "SWAP" && <Swap />}
+      {walletState === "SEND" && <Send />}
     </main>
   );
 }

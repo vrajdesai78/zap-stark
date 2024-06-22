@@ -24,8 +24,8 @@ const config: Config = {
       addBase({
         ".scrollbar": {
           overflowY: "auto",
-          scrollbarColor: `${theme("colors.indigo.200")} ${theme(
-            "colors.indigo.50"
+          scrollbarColor: `${theme("colors.neutral.100")} ${theme(
+            "colors.gray.200"
           )}`,
           scrollbarWidth: "thin",
         },
@@ -34,10 +34,10 @@ const config: Config = {
           width: "1px",
         },
         ".scrollbar::-webkit-scrollbar-thumb": {
-          backgroundColor: theme("colors.indigo.200"),
+          backgroundColor: theme("colors.neutral.100"),
         },
         ".scrollbar::-webkit-scrollbar-track-piece": {
-          backgroundColor: theme("colors.indigo.50"),
+          backgroundColor: theme("colors.gray.200"),
         },
       });
     }),

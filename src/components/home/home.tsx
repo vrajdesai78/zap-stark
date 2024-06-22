@@ -13,7 +13,12 @@ export default function Home() {
         <span className="text-neutral-800 text-5xl font-semibold">$ 20.00</span>
       </div>
       <div className="flex flex-row flex-wrap gap-7">
-        <button className="flex flex-col gap-1 items-center">
+        <button
+          className="flex flex-col gap-1 items-center"
+          onClick={() => {
+            setWalletState(State.SEND);
+          }}
+        >
           <GoArrowUpRight className="w-12 h-12 bg-stark p-3 rounded-full" />{" "}
           Send
         </button>
