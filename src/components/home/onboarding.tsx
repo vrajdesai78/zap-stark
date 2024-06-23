@@ -1,18 +1,6 @@
-import {
-  argentXaccountClassHash,
-  argentXproxyClassHash,
-} from "@/utils/constants";
+import { deployAccount } from "@/utils/utils";
 import Image from "next/image";
-import {
-  Account,
-  CallData,
-  Provider,
-  RpcProvider,
-  constants,
-  ec,
-  hash,
-  stark,
-} from "starknet";
+import { Account, CallData, RpcProvider, ec, hash, stark } from "starknet";
 
 interface OnboardingProps {
   setIsWalletCreated: (isWalletCreated: boolean) => void;
@@ -24,53 +12,8 @@ export function Onboarding({ setIsWalletCreated }: OnboardingProps) {
       "https://starknet-mainnet.blastapi.io/7987c69e-0573-456d-80de-b76bdd831edf",
   });
 
-  function uint8ArrayToAddress66(uint8Array: Uint8Array): string {
-    const hexString = Array.from(uint8Array)
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-
-    const truncatedHex = hexString.slice(0, 64);
-    return "0x" + truncatedHex.toLowerCase();
-  }
-
   const createWallet = async () => {
-    const privateKey = stark.randomAddress();
-    console.log("privateKey:", privateKey);
-    const publicKey = uint8ArrayToAddress66(
-      ec.starkCurve.getPublicKey(privateKey)
-    );
-    const AXproxyConstructorCallData = CallData.compile({
-      implementation: argentXaccountClassHash,
-      selector: hash.getSelectorFromName("initialize"),
-      calldata: CallData.compile({
-        signer: publicKey,
-        guardian: "0",
-      }),
-    });
-
-    const AXcontractAddress = hash.calculateContractAddressFromHash(
-      publicKey,
-      argentXproxyClassHash,
-      AXproxyConstructorCallData,
-      0
-    );
-    console.log("Precalculated account address=", AXcontractAddress);
-
-    const accountAX = new Account(provider, AXcontractAddress, privateKey);
-
-    const deployAccountPayload = {
-      classHash: argentXproxyClassHash,
-      constructorCalldata: AXproxyConstructorCallData,
-      contractAddress: AXcontractAddress,
-      addressSalt: publicKey,
-    };
-
-    const {
-      transaction_hash: AXdAth,
-      contract_address: AXcontractFinalAddress,
-    } = await accountAX.deployAccount(deployAccountPayload);
-    console.log("✅ ArgentX wallet deployed at:", AXcontractFinalAddress);
-    console.log("🔗 Transaction hash:", AXdAth);
+    await deployAccount()
   };
 
   return (
