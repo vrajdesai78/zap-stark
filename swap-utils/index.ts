@@ -10,47 +10,47 @@ import {
 } from "@avnu/avnu-sdk";
 import { writeFileSync } from "fs";
 
-import { Account, RpcProvider } from "starknet";
-import tokens from "../tokens.json";
+import { Account, RpcProvider, stark, ec, CallData, SIMULATION_FLAG } from "starknet";
+import tokens from "./tokens.json";
 
-// initialize provider
 const provider = new RpcProvider({
   nodeUrl: "https://starknet-mainnet.public.blastapi.io",
 });
-// initialize existing pre-deployed account 0 of Devnet
-const privateKey = "0xe3e70682c2094cac629f6fbed82c07cd";
-const accountAddress =
-  "0x7e00d496e324876bbc8531f2d9a82bf154d1a04a50218ee74cdd372f75a551a";
 
-const account = new Account(provider, accountAddress, privateKey);
+const privateKey = stark.randomAddress();
+const publicKey = ec.starkCurve.getStarkKey(privateKey);
+const account = new Account(provider, publicKey, privateKey);
 
-const ethTokenAddress = tokens.content[0].address;
-const daiTokenAddress = tokens.content[1].address;
+async function getQuote(sellTokenAddress: string, buyTokenAddress: String, amount: number) {
+  const fetchPriceParams = {
+    sellTokenAddress: sellTokenAddress,
+    buyTokenAddress: buyTokenAddress,
+    sellAmount: BigInt(amount),
+  } as unknown as PriceRequest;
 
-const fetchPriceParams = {
-  sellTokenAddress: ethTokenAddress,
-  buyTokenAddress: daiTokenAddress,
-  sellAmount: BigInt(1e18),
-} as unknown as PriceRequest;
+  try {
+    const prices = await fetchPrices(fetchPriceParams);
 
-try {
-  const prices = await fetchPrices(fetchPriceParams);
+    const fetchQuoteParams = {
+      sellTokenAddress: sellTokenAddress,
+      buyTokenAddress: buyTokenAddress,
+      sellAmount: BigInt(amount),
+    } as unknown as QuoteRequest;
 
-  const fetchQuoteParams = {
-    sellTokenAddress: ethTokenAddress,
-    buyTokenAddress: daiTokenAddress,
-    sellAmount: BigInt(1e18),
-  } as unknown as QuoteRequest;
+    const quote: any = await fetchQuotes(fetchQuoteParams);
+    console.log(quote);
+    const quoteID = quote[0].quoteId;
+    console.log(quoteID);
+    const buildTransaction = await fetchBuildExecuteTransaction(
+      quoteID,
+      publicKey
+    );
+    console.log(buildTransaction);
 
-  const quote: any = await fetchQuotes(fetchQuoteParams);
-  console.log(quote);
-  const quoteID = quote[0].quoteId;
-  console.log(quoteID);
-  const buildTransaction = await fetchBuildExecuteTransaction(
-    quoteID,
-    accountAddress
-  );
-  console.log(buildTransaction);
-} catch (error) {
-  console.log(error);
+    return { quote, buildTransaction };
+  } catch (error) {
+    console.log(error);
+  }
 }
+
+export default getQuote;
