@@ -6,6 +6,7 @@ import { LiaExchangeAltSolid } from "react-icons/lia";
 import { getQuote } from "../../../swap-utils";
 import { formatEther, parseEther, parseGwei } from "viem";
 import { GlobalContext, Thread } from "@/context";
+import toast from "react-hot-toast";
 
 export default function Swap() {
   const [amount, setAmount] = useState<number>(0);
@@ -209,7 +210,10 @@ export default function Swap() {
             </button>
             <button
               className='w-full px-5 py-3 bg-stark/90 hover:bg-stark rounded-xl'
-              onClick={() => {}}
+              onClick={() => {
+                toast.error("Not Enough Balance");
+                setThread(Thread.ONE);
+              }}
             >
               Send
             </button>

@@ -2,6 +2,7 @@
 import { GlobalContext, Thread } from "@/context";
 import { tokens } from "@/utils";
 import { useContext, useState } from "react";
+import toast from "react-hot-toast";
 
 interface Token {
   name: string;
@@ -59,14 +60,7 @@ export default function Send() {
                 />
                 <span className='flex flex-col items-start'>
                   <h3 className='font-medium text-indigo-500'>{token.name}</h3>
-                  <p className='text-sm text-neutral-500'>
-                    {token.symbol === "DAI"
-                      ? "20"
-                      : token.symbol === "ETH"
-                      ? "0.01"
-                      : "0"}{" "}
-                    {token.symbol}
-                  </p>
+                  <p className='text-sm text-neutral-500'>0 {token.symbol}</p>
                 </span>
               </button>
             ))}
@@ -105,14 +99,7 @@ export default function Send() {
                 </button>
               </span>
               <span className='flex w-full items-center justify-between text-sm px-2 text-neutral-500'>
-                <p>
-                  $
-                  {token.symbol === "DAI"
-                    ? "20"
-                    : token.symbol === "ETH"
-                    ? "347.23"
-                    : "0"}{" "}
-                </p>
+                <p>$0</p>
                 <p>
                   Available:{" "}
                   {token.symbol === "DAI"
@@ -183,7 +170,10 @@ export default function Send() {
             </button>
             <button
               className='w-full px-5 py-3 bg-stark/90 hover:bg-stark rounded-xl'
-              onClick={() => {}}
+              onClick={() => {
+                toast.error("Not Enough Balance");
+                setThread(Thread.ONE);
+              }}
             >
               Send
             </button>

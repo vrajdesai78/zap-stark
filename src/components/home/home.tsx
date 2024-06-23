@@ -10,9 +10,7 @@ export default function Home() {
     <>
       <div className='my-8 text-center'>
         <h3 className='text-neutral-600'>Total balance</h3>
-        <span className='text-neutral-800 text-5xl font-semibold'>
-          $ 367.23
-        </span>
+        <span className='text-neutral-800 text-5xl font-semibold'>$ 0</span>
       </div>
       <div className='flex flex-row flex-wrap gap-7'>
         <button
