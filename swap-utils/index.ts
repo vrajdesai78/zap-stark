@@ -10,7 +10,14 @@ import {
 } from "@avnu/avnu-sdk";
 import { writeFileSync } from "fs";
 
-import { Account, RpcProvider, stark, ec, CallData, SIMULATION_FLAG } from "starknet";
+import {
+  Account,
+  RpcProvider,
+  stark,
+  ec,
+  CallData,
+  SIMULATION_FLAG,
+} from "starknet";
 import tokens from "./tokens.json";
 
 const provider = new RpcProvider({
@@ -21,11 +28,15 @@ const privateKey = stark.randomAddress();
 const publicKey = ec.starkCurve.getStarkKey(privateKey);
 const account = new Account(provider, publicKey, privateKey);
 
-export async function getQuote(sellTokenAddress: string, buyTokenAddress: String, amount: number) {
+export async function getQuote(
+  sellTokenAddress: string,
+  buyTokenAddress: String,
+  amount: bigint
+) {
   const fetchPriceParams = {
     sellTokenAddress: sellTokenAddress,
     buyTokenAddress: buyTokenAddress,
-    sellAmount: BigInt(amount),
+    sellAmount: amount,
   } as unknown as PriceRequest;
 
   try {
@@ -57,4 +68,3 @@ export async function getAddressFromStarkName(starkName: string) {
   const address = await provider.getAddressFromStarkName(starkName);
   return address;
 }
-

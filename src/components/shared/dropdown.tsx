@@ -13,8 +13,11 @@ interface Token {
 
 interface DropdownProps {
   filteredTokens: Token[];
-  selectedToken: string | null;
-  onSelect: (token: string) => void;
+  selectedToken: {
+    symbol: string;
+    address: string;
+  } | null;
+  onSelect: (symbol: string, address: string, logoUri: string) => void;
   className: string;
 }
 
@@ -26,7 +29,7 @@ export default function Dropdown({
 }: DropdownProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <div className="relative">
+    <div className='relative'>
       <button
         className={
           "flex py-2 px-4 items-center justify-center gap-2 rounded-xl shadow-lg " +
@@ -34,24 +37,24 @@ export default function Dropdown({
         }
         onClick={() => setIsOpen(!isOpen)}
       >
-        {selectedToken || "Select"}
+        {selectedToken?.symbol || "Select"}
         <FaChevronDown size={15} className={`${isOpen && "rotate-180"}`} />
       </button>
       {isOpen && (
-        <div className="absolute top-full right-0 flex flex-col z-50 mt-2 w-[20rem] max-h-[13rem] border border-neutral-200 bg-white bg-opacity-90 text-neutral-800 backdrop-blur-lg rounded-xl shadow-lg scroll-smooth scrollbar">
-          {filteredTokens.map((token) => (
+        <div className='absolute top-full right-0 flex flex-col z-50 mt-2 w-[20rem] max-h-[13rem] border border-neutral-200 bg-white bg-opacity-90 text-neutral-800 backdrop-blur-lg rounded-xl shadow-lg scroll-smooth scrollbar'>
+          {filteredTokens.map((token, idx: number) => (
             <button
-              key={token.chainId}
-              className="flex flex-row gap-3 hover:bg-neutral-200 items-center w-full px-5 py-2"
+              key={idx}
+              className='flex flex-row gap-3 hover:bg-neutral-200 items-center w-full px-5 py-2'
               onClick={() => {
-                onSelect(token.symbol);
+                onSelect(token.symbol, token.address, token.logoUri);
                 setIsOpen(false);
               }}
             >
               <img
                 alt={token.name}
                 src={token.logoUri}
-                className="w-6 h-6 rounded-xl object-cover"
+                className='w-6 h-6 rounded-xl object-cover'
               />
               {token.symbol}
             </button>
