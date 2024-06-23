@@ -59,7 +59,14 @@ export default function Send() {
                 />
                 <span className='flex flex-col items-start'>
                   <h3 className='font-medium text-indigo-500'>{token.name}</h3>
-                  <p className='text-sm text-neutral-500'>2 {token.symbol}</p>
+                  <p className='text-sm text-neutral-500'>
+                    {token.symbol === "DAI"
+                      ? "20"
+                      : token.symbol === "ETH"
+                      ? "0.01"
+                      : "0"}{" "}
+                    {token.symbol}
+                  </p>
                 </span>
               </button>
             ))}
@@ -98,8 +105,23 @@ export default function Send() {
                 </button>
               </span>
               <span className='flex w-full items-center justify-between text-sm px-2 text-neutral-500'>
-                <p>$0.00</p>
-                <p>Available: 2 {token.symbol}</p>
+                <p>
+                  $
+                  {token.symbol === "DAI"
+                    ? "20"
+                    : token.symbol === "ETH"
+                    ? "347.23"
+                    : "0"}{" "}
+                </p>
+                <p>
+                  Available:{" "}
+                  {token.symbol === "DAI"
+                    ? "20"
+                    : token.symbol === "ETH"
+                    ? "0.01"
+                    : "0"}{" "}
+                  {token.symbol}
+                </p>
               </span>
             </div>
           </div>
