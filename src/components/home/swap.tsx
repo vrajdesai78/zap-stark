@@ -86,7 +86,7 @@ export default function Swap() {
       setBuyAmount(parseFloat(formatEther(BigInt(quote.quote[0].buyAmount))));
       setSellAmountInUSD(quote.quote[0].sellAmountInUsd);
       setBuyAmountInUSD(quote.quote[0].buyAmountInUsd);
-      setGasFees(quote.quote[0].gasFees);
+      setGasFees(quote.quote[0].gasFeesInUsd);
     });
   }, [amount]);
 
