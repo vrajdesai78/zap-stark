@@ -154,3 +154,8 @@ export const tokens = [
       "https://zklend.gitbook.io/~gitbook/image?url=https:%2F%2F4162751440-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FFPvHrlMhUpyXVmLfOKVy%252Fuploads%252FQyZucIilvlC0irpiNJrd%252FzkLend_icon.png%3Falt=media%26token=a6a02b08-1152-4935-b3d3-84c90fd9a558&width=768&dpr=1&quality=100&sign=54d85166f4cf2ad8d2c0e1788e2ef10b63cd86b0e3214e568bf168fa73cdf0fb",
   },
 ];
+
+export const argentXproxyClassHash =
+  "0x25ec026985a3bf9d0cc1fe17326b245dfdc3ff89b8fde106542a3ea56c5a918";
+export const argentXaccountClassHash =
+  "0x1a736d6ed154502257f02b1ccdf4d9d1089f80811cd6acad48e6b6a9d1f2003";
