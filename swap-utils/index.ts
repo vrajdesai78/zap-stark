@@ -21,7 +21,7 @@ const privateKey = stark.randomAddress();
 const publicKey = ec.starkCurve.getStarkKey(privateKey);
 const account = new Account(provider, publicKey, privateKey);
 
-async function getQuote(sellTokenAddress: string, buyTokenAddress: String, amount: number) {
+export async function getQuote(sellTokenAddress: string, buyTokenAddress: String, amount: number) {
   const fetchPriceParams = {
     sellTokenAddress: sellTokenAddress,
     buyTokenAddress: buyTokenAddress,
@@ -53,4 +53,8 @@ async function getQuote(sellTokenAddress: string, buyTokenAddress: String, amoun
   }
 }
 
-export default getQuote;
+export async function getAddressFromStarkName(starkName: string) {
+  const address = await provider.getAddressFromStarkName(starkName);
+  return address;
+}
+
