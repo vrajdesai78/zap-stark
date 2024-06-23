@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { GlobalContext, State } from "@/context";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa";
@@ -8,6 +9,7 @@ import { LuLogOut } from "react-icons/lu";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const { user, handleLogOut } = useDynamicContext();
   const { walletState, setWalletState } = useContext(GlobalContext);
   return (
     <div className="relative flex items-center justify-between w-full text-neutral-700">
@@ -46,9 +48,14 @@ export default function Navbar() {
         <div className="flex flex-col absolute w-[20rem] items-start rounded-lg top-[2.2rem] right-[1rem] bg-neutral-200 backdrop-blur-md bg-opacity-15 border border-neutral-300 z-50">
           <button className="flex w-full gap-2 p-3 hover:bg-neutral-400 hover:bg-opacity-15 hover:backdrop-blur-md hover:text-blue-500 items-center justify-start truncate">
             <span className="w-6 h-6 bg-gradient-conic to-cyan-400 from-white rounded-full shadow-lg" />
-            Account
+            {user?.email}
           </button>
-          <button className="flex w-full gap-2 p-3 hover:bg-neutral-400 hover:bg-opacity-15 hover:backdrop-blur-md hover:text-blue-500 items-center justify-start">
+          <button
+            className="flex w-full gap-2 p-3 hover:bg-neutral-400 hover:bg-opacity-15 hover:backdrop-blur-md hover:text-blue-500 items-center justify-start"
+            onClick={() => {
+              handleLogOut();
+            }}
+          >
             <LuLogOut /> Logout
           </button>
         </div>
